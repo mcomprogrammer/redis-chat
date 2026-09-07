@@ -2,6 +2,12 @@
 
 A Spring Boot chat application using Redis for rooms, participants, message history, and realtime updates through Redis Pub/Sub and SSE.
 
+## Work split
+
+I wrote RedisChatService, the DTOs, exceptions, GlobalExceptionHandler, and ChatController by hand.
+
+RedisPubSubConfig, RedisChatApplication, and the tests were made with AI support based on my high-level design and step-by-step handholding.
+
 ## Main flow
 
 1. Create a room.
@@ -35,12 +41,6 @@ Only participants who joined a room can send messages or subscribe to its stream
 - DTOs: API request and response models
 - Exceptions and GlobalExceptionHandler: application error responses
 - ChatSseService and RedisPubSubConfig: SSE and Redis Pub/Sub wiring
-
-## Work split
-
-I wrote RedisChatService, the DTOs, exceptions, GlobalExceptionHandler, and ChatController by hand.
-
-RedisPubSubConfig, RedisChatApplication, and the tests were made with AI support based on my high-level design and step-by-step handholding.
 
 ## Run
 
