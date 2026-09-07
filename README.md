@@ -6,7 +6,7 @@ A Spring Boot chat application using Redis for rooms, participants, message hist
 
 I wrote RedisChatService, the DTOs, exceptions, GlobalExceptionHandler, and ChatController by hand.
 
-RedisPubSubConfig, RedisChatApplication, and the tests were made with AI support based on my high-level design and step-by-step handholding.
+RedisPubSubConfig, ChatSseService, and the tests were made with AI support based on my high-level design and step-by-step handholding.
 
 ## Main flow
 
