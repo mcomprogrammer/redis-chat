@@ -3,6 +3,7 @@ package com.pranavapp.redischat.exceptions;
 import com.pranavapp.redischat.model.dto.JoinRoomResponse;
 import com.pranavapp.redischat.model.dto.RoomCreationResponse;
 import com.pranavapp.redischat.model.dto.SendMessageResponse;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<SendMessageResponse> handleConstraintViolation(ConstraintViolationException e) {
+        return ResponseEntity.badRequest().body(new SendMessageResponse(e.getMessage(), "ERROR"));
+    }
 
     @ExceptionHandler(DuplicateRoomException.class)
     public ResponseEntity<RoomCreationResponse> handleDuplicateRoomException(DuplicateRoomException e) {

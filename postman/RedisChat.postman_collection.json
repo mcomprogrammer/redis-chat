@@ -1,0 +1,105 @@
+{
+  "info": {
+    "name": "Redis Chat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Start Redis and the Spring Boot app. Run requests 1–4 in order. Open request 5 separately and send request 3 again to receive a live message. Change roomId for a fresh room; duplicate creation returns 409."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "roomId",
+      "value": "general"
+    },
+    {
+      "key": "participant",
+      "value": "alice"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Create room",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/chatapp/chatrooms",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roomName\": \"{{roomId}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "2. Join room",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/chatapp/chatrooms/{{roomId}}/join",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"participant\": \"{{participant}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "3. Send message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/chatapp/chatrooms/{{roomId}}/messages",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"participant\": \"{{participant}}\",\n  \"message\": \"Hello, everyone!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "4. Get history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/chatapp/chatrooms/{{roomId}}/messages?limit=10"
+      }
+    },
+    {
+      "name": "5. Stream (leave open; send another message in a second tab)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/chatapp/chatrooms/{{roomId}}/stream?participant={{participant}}"
+      }
+    }
+  ]
+}

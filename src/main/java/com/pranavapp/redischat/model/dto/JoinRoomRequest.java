@@ -1,6 +1,6 @@
 package com.pranavapp.redischat.model.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
-public record JoinRoomRequest (@NotNull String participant){
+public record JoinRoomRequest (@NotBlank String participant){
 }

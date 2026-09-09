@@ -44,13 +44,17 @@ Only participants who joined a room can send messages or subscribe to its stream
 
 ## Run
 
-Redis must be available at localhost:6379.
+Requires JDK 21 or newer and Redis at localhost:6379. With Docker: `docker run --name redis-chat -p 6379:6379 -d redis:7`. If already created, use `docker start redis-chat`.
 
 ~~~powershell
 .\mvnw.cmd spring-boot:run
 ~~~
 
-Run tests:
+App URL: http://localhost:8080. On Linux/macOS use `sh mvnw spring-boot:run`.
+
+Import [the Postman collection](postman/RedisChat.postman_collection.json), then run requests 1–4 in order. For SSE, leave request 5 open and send request 3 again from another tab. Change `roomId` for a fresh room; creating it twice returns 409.
+
+Run tests (Redis must be running):
 
 ~~~powershell
 .\mvnw.cmd test
